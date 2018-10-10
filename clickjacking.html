@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>ClickJacking</title>
+<script type="text/javascript">
+function loadDoc() {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+           if (xmlhttp.status === 200) {
+               document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+           }
+           else if (xmlhttp.status === 400) {
+              alert('There was an error 400');
+           }
+           else {
+               alert('something else other than 200 was returned');
+           }
+        }
+    };
+
+    xmlhttp.open("POST", "https://yvan-XPS-13-9360/", true);
+    xmlhttp.withCredentials = true;
+    xmlhttp.send();
+}
+</script>
+	</head>
+	<body>
+		<input type="submit" value="Try XSS" onclick="loadDoc()" />
+		<!--iframe src="http://localhost/"></iframe-->
+	</body>
+</html>
